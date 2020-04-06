@@ -10,30 +10,26 @@ from sklearn.decomposition import PCA
 import os
 import os.path
 from matplotlib.collections import LineCollection
-from sklearn import manifold
-from sklearn.metrics import euclidean_distances
-from nltk.stem import WordNetLemmatizer 
+from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.stem import PorterStemmer
 
 print('loading model ...')
-nlp = spacy.load('en_core_web_sm')
+nlp = spacy.load('en_core_web_md')
 print('loading done!')
 
 #Variables
 dis_mat=[]
 tcs=[]
-folder = "bm"
-lemmatizer = WordNetLemmatizer() 
+folder = "fake"
+lemmatizer = WordNetLemmatizer()
 porter = PorterStemmer()
 #Functions
 def remove_stop_words(text):
     return ' '.join([word for word in text.split(' ') if word.lower() not in STOP_WORDS])
-def remove_intro(text):
-    INTRO= ["This", "basic", "testcase", "is", "designed", "to", "verify", "that", "test", "check", "purpose", "steps", "expected", "outcome", "Conditions", "initial", "Steps/Description", "following", "links", "each", "mozilla"]
-    return ' '.join([word for word in text.split(' ') if word.lower() not in INTRO])
 def clean(text):
-    return remove_intro(remove_stop_words(text))
+    #add more cleaning here if needed
+    return remove_stop_words(text)
 def all_file_content(directory_name):
     file_list = os.listdir(directory_name)
     for file_name in file_list:
@@ -51,7 +47,7 @@ def stemSentence(sentence):
 for file_content in all_file_content(folder):
     file_list = os.listdir(folder)
     tcs.append(file_content)
-print(file_list)
+# print(file_list)
 
 #create distance matrix
 for tc_a in tcs:
@@ -61,9 +57,11 @@ for tc_a in tcs:
     for tc_b in tcs:
         sim = nlp(stemSentence(clean(tc_a))).similarity(nlp(stemSentence(clean(tc_b))))
         dis_mat[tcs.index(tc_a)].append(1-sim)
+        # print("add similarity of tc : ", tcs.index(tc_a), "with tc : ", tcs.index(tc_b))
 
 
 #add desciption column and row
+print("adding header row")
 desc = ['']
 for i in range(len(tcs)):
     file_list = os.listdir(folder)
@@ -91,7 +89,7 @@ with open("matrix.csv","w+") as my_csv:
 # word_vecs_2d = pca.transform(get_word_vectors(words))
 
 
-# # create a nice big plot 
+# # create a nice big plot
 # plt.figure(figsize=(15,10))
 
 # # plot the scatter plot of where the words will be
