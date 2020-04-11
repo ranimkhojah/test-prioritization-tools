@@ -115,15 +115,16 @@ BEGIN {
 
 { if (flag == 1 && testpassed == 1 && testlineprinted == 0) {
   print testline > methname ".txt";
-  print "@test printed";
+  print testline " printed";
   testlineprinted = 1;
   }
 }
 { if (flag == 1 && testpassed == 1 && testlineprinted == 1) {
-    print $0 > methname ".txt"
+    print $0 > methname ".txt";
   }
 }
 
-/\}/ {if (obrackets == cbrackets) {flag = 0; print "Matched brackets! "; obrackets = 0; cbrackets = 0} }
+/\}/ {if (obrackets == cbrackets) {flag = 0; print "Matched brackets! "; obrackets = 0; cbrackets = 0; close(methname ".txt")} }
+
 END{print "\n Open brackets: ", obrackets, "  Closed brackets: ", cbrackets, "  Total test methods: ", methnum}
 '
