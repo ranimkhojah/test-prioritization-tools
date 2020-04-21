@@ -29,15 +29,15 @@ from scipy.spatial.distance import euclidean, pdist, squareform
 from scipy import sparse
 import csv
 import pandas as pd
-
+import sys
 
 # In[2]:
 
 
 # Doc2Vec Model
 model="ms/doc2vec.bin"
-test_docs="data/test_docs.txt"
-output_file="data/test_vectors.txt"
+#test_docs="data/test_docs.txt"
+#output_file="data/test_vectors.txt"
 #parameters
 start_alpha=0.01
 infer_epoch=1000
@@ -49,7 +49,7 @@ d2v = g.Doc2Vec.load(model)
 
 
 #read test cases from a directory
-folder = "folder"
+folder = sys.argv[1]
 tcs = []
 dis_mat = []
 def all_file_content(directory_name):
