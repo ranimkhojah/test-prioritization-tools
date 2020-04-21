@@ -10,14 +10,19 @@
 BEGIN {
     prevmethnum = 0;
     methnum = 0;
-    print "FILENAME: " ARGV[1];
+    # print "FILENAME: " ARGV[1];
     projectversion = ARGV[1];
 
-    print "PROJ VER: " projectversion;
+    print "Processing file: " projectversion;
+    arrlength = split (projectversion, array, /\// );
+    # get last index value
+    projectversion = array[arrlength];
+    print "removed folder slashes: " projectversion;
+
 
     split (projectversion, array, /\_/ );
     projectversion = array[1];
-    print projectversion;
+    print " Version: " projectversion;
 }
 
 { split($0, array, /\(/ );
@@ -33,21 +38,12 @@ BEGIN {
   # print classandmethod;
   # print projectversion;
 
-  print classandmethod > projectversion "_methods.txt";
+  print classandmethod > "reorganizedMeths/" projectversion "_methods.txt";
   methnum++;
 
 }
 
 END {
   print "Total test methods: ", methnum;
-  print "target: " > projectversion "_methods.txt"}
-
-
-# awk  '
-# { split($1, array, /\(/ );
-#   methodname = array[1];
-#   print methodname;
-#   print methodname > "methods.txt";
-#   print "[2] - " array[2];
-# }
-# '  methods.txt
+  print "target: " projectversion "_methods.txt"
+}
