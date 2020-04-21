@@ -13,7 +13,11 @@ function parse_args(args)
 
     # initialize the settings (the description is for the help screen)
     s = ArgParseSettings(description = "mdist - multi (string) distance calculator")
-
+    @add_arg_table s begin
+        "divseq"
+            help = "order files in a sequence by diversity"
+            action = :command
+    end
     @add_arg_table s["divseq"] begin
        "--order"
             help = "diversity ordering method (default: maximin)"
@@ -109,9 +113,9 @@ using DataFrames
 using DelimitedFiles
 function MaxiMinDiversitySequence()
     # strings = String[string(o) for o in objects]
-    # df = CSV.read("dm.csv")
+    # df = CSV.read("d2v_dm.csv")
     # dm = Matrix{Float64}(df)
-    dm = readdlm("dm.csv",';', Float64)
+    dm = readdlm("d2v_dm.csv",';', Float64)
     selectionorder = find_maximin_sequence(dm)
     selectionorder
 end
