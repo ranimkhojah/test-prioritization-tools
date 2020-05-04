@@ -45,5 +45,5 @@ BEGIN {
 
 END {
   print "Total test methods: ", methnum;
-  print "target: " projectversion "_methods.txt"
+  print "target: " "reorganizedMeths/" projectversion "_methods.txt"
 }
