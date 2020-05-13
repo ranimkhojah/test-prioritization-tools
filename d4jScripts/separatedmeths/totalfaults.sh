@@ -47,6 +47,7 @@ do
     faults = 0;
     cappedfaults = 0;
     failures = 0;
+    prevcounter = "";
   }
 
 # inside trigger file
@@ -91,9 +92,28 @@ do
       printf "\n" $0 >> "./rankedtotalfaults/" currentfilename "_totalfaults_" fileincrement ".csv";
 
       rankmethodarrlength = split ($0, rankmethodarr, /,/ );
+      currentcounter = rankmethodarr[1];
       rankmethod = rankmethodarr[2];
       ranking = rankmethodarr[rankmethodarrlength];
 
+      if (currentcounter != prevcounter) {
+        if (FNR == 2) {
+          prevcounter = currentcounter;
+        }
+
+        if (failures == triggerslength) {
+          # print "Moving From " prevcounter " to " currentcounter " - ALL TRIGGERS MATCHED";
+        }
+
+        # beginning failures most likely = 0, almost always not the same
+        if (failures != triggerslength && FNR != 2) {
+          print "Moving From " prevcounter " to " currentcounter " - ERROR ";
+        }
+        # 0 here, but if same line is trigger it will +1 below - reset everything
+        faults = 0;
+        cappedfaults = 0;
+        failures = 0;
+      }
 
       shortrankmetharrlength = split (rankmethod, shortrankmetharr, /\//);
       currentrankmeth = shortrankmetharr[shortrankmetharrlength];
@@ -104,6 +124,7 @@ do
       # printf actualrankmeth "   --   ";
       # print ranking;
 
+      # wow i have no idea what i wrote
       { for (i = 1; i <= triggerslength; i++) {
           # printf "\n"  actualrankmeth "   --   ";
 
@@ -130,6 +151,7 @@ do
       }
       printf "," cappedfaults >> "./rankedtotalfaults/" currentfilename "_totalfaults_" fileincrement ".csv";
     }
+    prevcounter = currentcounter;
   }
 
 END {
