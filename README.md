@@ -5,10 +5,8 @@
 2) The program runs on Python 3.7
 3) The following packages should be installed
 
-| Package        | Version       | 
+| Package        | Version      | 
 | ------------- |:-------------:| 
-|en-core-web-md | 2.0.0         | 
-|tqdm           | 4.43.0        | 
 |numpy |1.18.1  |
 |pandas | 1.0.2 |
 | stop-words | |
