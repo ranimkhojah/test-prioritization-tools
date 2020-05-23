@@ -36,3 +36,4 @@ A csv file that includes a distance matrix calculated by cosine distance functio
 #### Other Options
 1) interpret the distance matrix into a ranking by running the `Julia mdistmain.jl distance_matrix.csv` in Julia folder
 2) Create a random ranking by cd to `Lemon-Ginger-Thesis/Random` then placing `dir` as a test suite folder and finally run `python random_test_specs.py`.
+3) Calculate the coverage of the generated ranking.
