@@ -5,7 +5,7 @@ args=("$@");
 
 if (($# == 2))
   then
-    # sorted, tech col added, ranked csv
+    # sorted, tech col added, ranked, total failures/faults csv 
     dir1=${args[0]}
     echo "targetdir 1: $dir1";
 
