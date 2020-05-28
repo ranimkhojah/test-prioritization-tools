@@ -2,27 +2,25 @@ import java.lang.*;
 public class MyFarm {
 
   private String farmName;
-  private int chickens;
-  private int cows;
-  private int eggCount;
-  private int milkCount;
+  private int chickens; private int eggNum;
+  private int cows;     private int milkNum;
 
   public MyFarm (String farmName, int chickens, int cows) {
     this.farmName = farmName;
     this.chickens = chickens; this.cows = cows;
-    this.eggCount = 5;        this.milkCount = 10;
+    this.eggNum = 5;        this.milkNum = 10;
   }
-  public String getFarmName() {  return this.farmName;  }
-  public int getChickens()    {  return this.chickens;  }
-  public int getCows()        {  return this.cows;      }
-  public int getEggCount()    {  return this.eggCount;  }
-  public int getMilkCount()   {  return this.milkCount; }
+  public String getName() { return this.farmName;}
+  public int getChickens(){ return this.chickens;}
+  public int getCows()    { return this.cows;}
+  public int getEggNum()  { return this.eggNum;}
+  public int getMilkNum() { return this.milkNum;}
   public boolean isEggEmpty() { 
-    if (eggCount > 0) { return false; }
-    else {  return true; }
+    if (eggNum > 0) { return false; }
+    else            { return true; }
   }
   public boolean isMilkEmpty() {
-    if (milkCount > 0) {  return false; }
-    else {  return true;  }
+    if (milkNum > 0) { return false; }
+    else             { return true;  }
   }
 }

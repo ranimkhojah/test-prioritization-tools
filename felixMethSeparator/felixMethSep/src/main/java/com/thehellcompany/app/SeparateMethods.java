@@ -52,6 +52,13 @@ public class SeparateMethods {
 
 	private static String versionTestPathForParent;
 
+	private static int totalParentCounter = 0;
+	private static int versionParentCounter = 0;
+	private static int grandparentCounter = 0;
+
+	private static ArrayList versionParentCountList = new ArrayList<>();
+	private static ArrayList versionGrandParentCountList = new ArrayList<>();
+
 	public static void main(String[] args) throws FileNotFoundException {
 
 		// Collection<String> classAndMethodNames =
@@ -59,7 +66,7 @@ public class SeparateMethods {
 
 		File methlistFolder = new File(SUREFIRE_DIR);
 		File[] listOfMethlistFiles = methlistFolder.listFiles();
-
+		System.out.println(listOfMethlistFiles);
 		for (int i = 0; i < listOfMethlistFiles.length; i++) {
 			SeparateMethods separateMethods = new SeparateMethods();
 
@@ -74,10 +81,15 @@ public class SeparateMethods {
 
 				String versionTestPath = currentVersion + "/src/test/";
 				Path checkVersionPath = Paths.get("target/projects_to_separate/" + currentVersion + "/src/test/java");
+				Path checkGsonVersionPath = Paths.get("target/projects_to_separate/" + currentVersion + "/gson/src/test/java");
 				// use it to know where to get the tests later on
 				if (Files.exists(checkVersionPath)) {
 					versionTestPath = currentVersion + "/src/test/java/";
 					System.out.println("src/test/java exists! ");
+				}
+				if (Files.exists(checkGsonVersionPath)) {
+					versionTestPath = currentVersion + "/gson/src/test/java/";
+					System.out.println("its gson. hello.");
 				}
 
 				System.out.println(versionTestPath);
@@ -115,9 +127,14 @@ public class SeparateMethods {
 			} else if (listOfMethlistFiles[i].isDirectory()) {
 				System.out.println("Directory: " + listOfMethlistFiles[i].getName());
 			}
+			versionParentCountList.add(versionParentCounter);
+			versionParentCounter = 0;
 		}
 
-
+		for (int i = 0; i < versionParentCountList.size(); i++) {
+			System.out.println(versionParentCountList.get(i));
+		}
+		System.out.println("No. of Total Inherited Tests: " + totalParentCounter);
 		// separateMethods.getMethodListFilenames();
 		// separateMethods.initializeCompilationUnitsForAllClasses(classAndMethodNames);
 		// separateMethods.extractsingledOutMethodFilesFor(classAndMethodNames);
@@ -173,8 +190,17 @@ public class SeparateMethods {
 				// System.out.println(className);
 				// System.out.println(methodName);
 
+				if (methodName.contains("OBJECT_READER") || methodName.contains("STRING_READER") || methodName.contains("[")) {
+					System.out.println("Random crap incoming  " + methodName);
+				// 	String[] splitname = methodName.split("\\[");
+				// 	methodName = splitname[0];
+				// 	System.out.println("Actual name: " + methodName);
+				}
+				// System.out.println("wtf is this    -- " + methodName);
+
 				String code = retrieveCodeFor(className, methodName);
 				if (code == "Nonexistent") {
+					
 					// ignoredTests++;
 					// System.out.println("\"" + methodName + "\" does not exist in type \"" + className + "\"! Looking in parent.");
 					String parentCode = retrieveParentCodeFor(className, methodName);
@@ -190,6 +216,8 @@ public class SeparateMethods {
 						Files.write(Paths.get(TEST_CODE_DIR + "/" + version + "/" + name + ".txt"), commentlessCode.getBytes());
 					}
 					else {
+						versionParentCounter++;
+						totalParentCounter++;
 						Files.write(Paths.get(TEST_CODE_DIR + "/" + version + "/" + name + ".txt"), parentCode.getBytes());
 					}
 				}
@@ -334,8 +362,15 @@ public class SeparateMethods {
 	ClassOrInterfaceDeclaration type = unit.getType(0).asClassOrInterfaceDeclaration(); 
 	NodeList<ClassOrInterfaceType> extendedTypes = type.getExtendedTypes();
 	// System.out.println(extendedTypes);
-	ClassOrInterfaceType parent = extendedTypes.get(0);
-
+	ClassOrInterfaceType parent = null;
+	if (extendedTypes.size() > 0) {
+		parent = extendedTypes.get(0);
+	}
+	if (extendedTypes.size() == 0) {
+		System.out.println(" No Parent!!!");
+		return "Still Nonexistent";
+	}
+	
 	String parentClassName = parent.getName().getIdentifier();
 	// System.out.println("parent name: " + parentClassName);
 
@@ -363,6 +398,13 @@ public class SeparateMethods {
 
 	MethodDeclaration method = new MethodDeclaration();
 
+	if (methodName.contains("OBJECT_READER") || methodName.contains("STRING_READER") ||  methodName.contains("[") ) {
+		// System.out.println("wtf is this    -- " + methodName);
+		String[] splitname = methodName.split("\\[");
+		methodName = splitname[0];
+		System.out.println("Actual name: " + methodName);
+	}
+
 	// look for method in parent instead
 	for (TypeDeclaration typeDec : parentUnit.getTypes()) {
 			List<BodyDeclaration> members = typeDec.getMembers();
@@ -374,6 +416,7 @@ public class SeparateMethods {
 							// System.out.println(member);
 					try {
 						if (methodName.equals(method.getNameAsString())) {
+							System.out.println("\"" + methodName + "\" found in parent - \"" + parentClassName + "\"");
 							// if method exists, will return here
 							return method.toString();	
 						}
@@ -466,6 +509,13 @@ public class SeparateMethods {
 		// ArrayList<MethodDeclaration> nonExistentMethods = new ArrayList<MethodDeclaration>();
 		// System.out.println(methodName);
 		// System.out.println("Unit: " + unit);
+		if (methodName.contains("OBJECT_READER") || methodName.contains("STRING_READER") ||  methodName.contains("[") ) {
+			// System.out.println("wtf is this    -- " + methodName);
+			String[] splitname = methodName.split("\\[");
+			methodName = splitname[0];
+			System.out.println("Actual name: " + methodName);
+		}
+
 		for (TypeDeclaration typeDec : unit.getTypes()) {
 				List<BodyDeclaration> members = typeDec.getMembers();
 				// System.out.println("members: " members.toString());
