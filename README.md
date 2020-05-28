@@ -16,8 +16,6 @@
 | regex |  2017.4.5 |
 | stop-words | 2018.7.23 |
 | tensorflow | 2.1.0 |
-| LineCollection | |
-| WordNetLemmatizer | |
 | sent_tokenize| |
 | stem | 1.8.0 |
 
