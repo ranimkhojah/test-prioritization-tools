@@ -1,30 +1,28 @@
 # Lemon-Ginger-Thesis
-### How to perform NLP on a set of test specifications
+### How to perform Semantic Similarity (SS) on a set of test specifications using an NLP approach.
 #### Pre-requists
-1) Anaconda shell is preferable 
-2) The program runs on Python 3.7
+1) Anaconda shell is preferable to run the programs
+2) The program runs on Python 3.7.7 or latest
 3) The following packages should be installed
 
 | Package        | Version       | 
 | ------------- |:-------------:| 
-|gensim |         | 
-|sklearn           |     | 
+|gensim | 3.8.1 | 
+| jupyter | 1.0.0 |
+|sklearn  |  0.0  | 
 |numpy |1.18.1  |
-|pandas | 1.0.2 |
+|pandas | 1.0.3 |
 |nltk|3.4.5|
-| stop-words | |
-| csv | |
-| plt | |
-| PCA | 0.1.5 |
-|os| |
+| regex |  2017.4.5 |
+| stop-words | 2018.7.23 |
+| tensorflow | 2.1.0 |
 | LineCollection | |
 | WordNetLemmatizer | |
 | sent_tokenize| |
-| word_tokenize | |
 | stem | 1.8.0 |
 
 
-#### Steps
+#### Steps to perform SS using a pre-trained D2V model on Wikipedia data
 1) cd to `Lemon-Ginger-Thesis/SS/python`
 2) Locate your set in a folder called `dir` in the same location where `d2v.py` is located
 3) Each test description file should correspond to one test case and in .txt format
