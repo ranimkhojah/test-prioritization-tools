@@ -9,9 +9,8 @@ if (($# == 1))
     targetdir=${args[0]}
 fi
 
-for d in $targetdir*/
+for f in $targetdir*
 do
-  echo $d;
-  defects4j test -w $d
-
+  echo "coverage reorganizing" $f;
+  awk -f ./covmethlist.awk $f;
 done

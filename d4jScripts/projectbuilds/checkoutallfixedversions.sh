@@ -4,7 +4,7 @@ end=1;
 echo "Total Args:" $#
 args=("$@");
 fixed="f"
-currentfolder="/media/sf_Bachelor_Thesis/d4jprojects/d4jprojectbuilds/fixed/"
+currentfolder="./fixed/"
 slash="/"
 
 if (($# == 3))
