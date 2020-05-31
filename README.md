@@ -1,4 +1,4 @@
-# Lemon-Ginger-Thesis
+# Lemon-Ginger Thesis :lemon:
 ## System level
 ### How to perform Semantic Similarity (SS) on a set of test specifications using an NLP approach.
 #### Pre-requists
