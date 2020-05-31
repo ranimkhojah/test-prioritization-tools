@@ -1,4 +1,4 @@
-# Lemon-Ginger Thesis :lemon:
+# Lemon-Ginger Thesis <img src="https://github.com/ranimkhojah/Lemon-Ginger-Thesis/blob/master/lem_ging.png?raw=true" width = "75" alt="🍋"/>
 ## System level
 ### How to perform Semantic Similarity (SS) on a set of test specifications using an NLP approach.
 #### Pre-requists
