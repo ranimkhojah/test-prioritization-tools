@@ -39,6 +39,8 @@ The package includes scripts to run Jaccard, NCD, Levenshtein, Random and Semant
     | sent_tokenize| |
     | stem | 1.8.0 |
 
+#### Doc2Vec pretrained model
+The pretrained model in `.bin` format and relevant files are available [here](https://drive.google.com/drive/folders/14Cs-jLhJ4dtlZ1xGzrz1kiJU0OwJKb19?usp=share_link).
 
 #### Steps to perform SS using a pre-trained D2V model on Wikipedia data
 1) cd to `test-prioritization-tools/src/SS/python`
@@ -58,6 +60,8 @@ A csv file that includes a distance matrix calculated by cosine distance functio
 There are 2 coverage scripts that can be used for 2 different formats of tests:
 1) [ Company A ] Extracting system-level tests from seperate text files in a directory.
 2) [ Company B ] Extracting integration-level tests from a test suite and the corresponding system-level tests from the docstrings of each test in the test suite.
+
+We also provide the R scripts in `src/coverage/coverage_visualization/coverage_plot/` to visualize the coverage on a system and integration level along with the input in `company_A_and_B_plots.zip` zip file (needs to be unzipped) to regenerate the plots in the paper.
    
 #### How to run
 1) cd to `src/coverage/`
